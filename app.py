@@ -40,8 +40,8 @@ class StorageSystem(db.Model):
         self.capacity_used = capacity_used
         self.error_status = error_status
 
-# Create the database tables if they do not exist
-with app.app_context():
+@app.before_first_request
+def create_tables():
     db.create_all()
 
 # Endpoint to populate the database with random records
