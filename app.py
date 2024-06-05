@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from random import randint, choice
-from urllib.parse import quote as url_quote  # Updated import
+from urllib.parse import quote as url_quote
 from dotenv import load_dotenv
 
 # Initialize SQLAlchemy
