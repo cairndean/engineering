@@ -5,16 +5,20 @@ from random import randint, choice
 from urllib.parse import quote as url_quote
 from dotenv import load_dotenv
 
+# Load environment variables from .env file, if it exists
+load_dotenv()
+
 # Initialize SQLAlchemy
 db = SQLAlchemy()
 
 def create_app():
-    load_dotenv()  # Load environment variables from .env file
-
     app = Flask(__name__)
 
-    # Configure the database URI: replace with your Render.com database path or provide a default
-    database_url = os.getenv('DATABASE_URL', 'postgresql://dino:dino@localhost:5432/engineering')
+    # Read database URL from environment variable
+    database_url = os.getenv('DATABASE_URL')
+    if not database_url:
+        raise RuntimeError("DATABASE_URL environment variable not set")
+    
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
