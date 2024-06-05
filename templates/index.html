@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Systems</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Storage Systems</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Company</th>
+                <th>Capacity Used (%)</th>
+                <th>Error Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for system in storage_systems %}
+            <tr>
+                <td>{{ system.id }}</td>
+                <td>{{ system.company }}</td>
+                <td>{{ system.capacity_used }}</td>
+                <td>{{ system.error_status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
 
