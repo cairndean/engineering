@@ -63,7 +63,36 @@ def create_app():
             db.session.commit()
 
         return jsonify({"message": "Database populated with random records."})
+        
 
+    # Endpoint to delete all records from the database
+    @app.route('/delete', methods=['DELETE'])
+    def delete_all():
+        try:
+            num_deleted = db.session.query(StorageSystem).delete()
+            db.session.commit()
+            return jsonify({"message": f"Deleted {num_deleted} records."}), 200
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"message": f"An error occurred: {str(e)}"}), 500
+        
+
+    # Endpoint to provide data in JSON format
+    @app.route('/data')
+    def data():
+        storage_systems = StorageSystem.query.all()
+        storage_systems_list = [
+            {
+                "id": system.id,
+                "company": system.company,
+                "capacity_used": system.capacity_used,
+                "error_status": system.error_status
+            }
+            for system in storage_systems
+        ]
+        return jsonify(storage_systems_list)
+
+    
     # Endpoint to display all database records
     @app.route('/')
     def index():
